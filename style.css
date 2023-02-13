@@ -1,9 +1,9 @@
 ul {
     list-style: none;
-    display: flex;
+    /* display: flex; */
 }
 li {
-border: 1px solid black;
+/* border: 1px solid black;
 width: 200px;
-margin: 20px;
+margin: 20px; */
 }
