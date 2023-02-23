@@ -33,101 +33,101 @@
 // 	console.log(sessionStorage.getItem("localStorage"));
 // }
 
-const content = document.querySelector(".content");
-const KEY_X = "keyX";
-const KEY_O = "keyO";
-const CURRENT_PLAYER = "player";
-let player = localStorage.getItem(CURRENT_PLAYER) || "X";
-let stepX = JSON.parse(localStorage.getItem(KEY_X)) || [];
-let stepO = JSON.parse(localStorage.getItem(KEY_O)) ?? [];
-const win = [
-	[1, 2, 3],
-	[4, 5, 6],
-	[7, 8, 9],
-	[1, 4, 7],
-	[2, 5, 8],
-	[3, 6, 9],
-	[1, 5, 9],
-	[3, 5, 7],
-];
-let markup = "";
+// const content = document.querySelector(".content");
+// const KEY_X = "keyX";
+// const KEY_O = "keyO";
+// const CURRENT_PLAYER = "player";
+// let player = localStorage.getItem(CURRENT_PLAYER) || "X";
+// let stepX = JSON.parse(localStorage.getItem(KEY_X)) || [];
+// let stepO = JSON.parse(localStorage.getItem(KEY_O)) ?? [];
+// const win = [
+// 	[1, 2, 3],
+// 	[4, 5, 6],
+// 	[7, 8, 9],
+// 	[1, 4, 7],
+// 	[2, 5, 8],
+// 	[3, 6, 9],
+// 	[1, 5, 9],
+// 	[3, 5, 7],
+// ];
+// let markup = "";
 
-for (let i = 1; i <= 9; i += 1) {
-	markup += `<div class="item" data-id="${i}"></div>`;
-}
+// for (let i = 1; i <= 9; i += 1) {
+// 	markup += `<div class="item" data-id="${i}"></div>`;
+// }
 
-content.insertAdjacentHTML("beforeend", markup);
-content.addEventListener("click", onClick);
+// content.insertAdjacentHTML("beforeend", markup);
+// content.addEventListener("click", onClick);
 
-function onClick(evt) {
-	// '' => !false => true
-	if (!evt.target.textContent) {
-		const id = Number(evt.target.dataset.id);
-		if (player === "X") {
-			stepX.push(id);
-			localStorage.setItem(KEY_X, JSON.stringify(stepX));
-			const isWinner = checkWinner(stepX);
-			evt.target.textContent = player;
-			if (isWinner) {
-				console.log(`${player} is Winner 😎`);
+// function onClick(evt) {
+// 	// '' => !false => true
+// 	if (!evt.target.textContent) {
+// 		const id = Number(evt.target.dataset.id);
+// 		if (player === "X") {
+// 			stepX.push(id);
+// 			localStorage.setItem(KEY_X, JSON.stringify(stepX));
+// 			const isWinner = checkWinner(stepX);
+// 			evt.target.textContent = player;
+// 			if (isWinner) {
+// 				console.log(`${player} is Winner 😎`);
 
-				setTimeout(() => {
-					reset();
-				}, 500);
-				return;
-			}
-		} else {
-			stepO.push(id);
-			localStorage.setItem(KEY_O, JSON.stringify(stepO));
-			const isWinner = checkWinner(stepO);
-			evt.target.textContent = player;
-			if (isWinner) {
-				console.log(`${player} is Winner 😎`);
+// 				setTimeout(() => {
+// 					reset();
+// 				}, 500);
+// 				return;
+// 			}
+// 		} else {
+// 			stepO.push(id);
+// 			localStorage.setItem(KEY_O, JSON.stringify(stepO));
+// 			const isWinner = checkWinner(stepO);
+// 			evt.target.textContent = player;
+// 			if (isWinner) {
+// 				console.log(`${player} is Winner 😎`);
 
-				setTimeout(() => {
-					reset();
-				}, 500);
-				return;
-			}
-		}
+// 				setTimeout(() => {
+// 					reset();
+// 				}, 500);
+// 				return;
+// 			}
+// 		}
 
-		player = player === "X" ? "O" : "X";
-		localStorage.setItem(CURRENT_PLAYER, player);
-	}
-}
+// 		player = player === "X" ? "O" : "X";
+// 		localStorage.setItem(CURRENT_PLAYER, player);
+// 	}
+// }
 
-function checkWinner(arr) {
-	const result = win.some((values) =>
-		values.every((value) => arr.includes(value))
-	);
-	return result;
-}
+// function checkWinner(arr) {
+// 	const result = win.some((values) =>
+// 		values.every((value) => arr.includes(value))
+// 	);
+// 	return result;
+// }
 
-function reset() {
-	content.innerHTML = markup;
-	// localStorage.removeItem(KEY_X);
-	localStorage.clear();
-	player = "X";
-	stepX = [];
-	stepO = [];
-}
+// function reset() {
+// 	content.innerHTML = markup;
+// 	// localStorage.removeItem(KEY_X);
+// 	localStorage.clear();
+// 	player = "X";
+// 	stepX = [];
+// 	stepO = [];
+// }
 
-// https://developer.mozilla.org/en-US/docs/Glossary/IIFE
+// // https://developer.mozilla.org/en-US/docs/Glossary/IIFE
 
-(function () {
-	try {
-		[...content.children].forEach((item) => {
-			const id = Number(item.dataset.id);
-			if (stepX.includes(id)) {
-				item.textContent = "X";
-			} else if (stepO.includes(id)) {
-				item.textContent = "O";
-			}
-		});
-	} catch (e) {
-		console.log("localStorage empty");
-	}
-})();
+// (function () {
+// 	try {
+// 		[...content.children].forEach((item) => {
+// 			const id = Number(item.dataset.id);
+// 			if (stepX.includes(id)) {
+// 				item.textContent = "X";
+// 			} else if (stepO.includes(id)) {
+// 				item.textContent = "O";
+// 			}
+// 		});
+// 	} catch (e) {
+// 		console.log("localStorage empty");
+// 	}
+// })();
 
 // const user = [1,2,3,4]
 // // console.log('before',user);
@@ -199,3 +199,74 @@ function reset() {
 // 4 Як використати Usage - new SimpleLightbox('.some-element a', { /* options */ });
 // 5 Розбір опцій Options
 // 6 Методи роботи з інстансом(екземпяром)
+// Change value of isSuccess variable to call resolve or reject
+// Change value of isSuccess variable to call resolve or reject
+// const isSuccess = false;
+
+// const promise = new Promise((resolve, reject) => {
+// 	setTimeout(() => {
+// 		if (isSuccess) {
+// 			resolve("Success! Value passed to resolve function");
+// 		} else {
+// 			reject("Error! Error passed to reject function");
+// 		}
+// 	}, 2000);
+// });
+
+// promise
+// 	.then((value) => {
+// 		console.log(value);
+// 	})
+// 	.catch((error) => {
+// 		console.log(error);
+// 	});
+
+// const promise = new Promise((resolve, reject) => {
+// 	setTimeout(() => {
+// 		resolve(5);
+// 	}, 2000);
+// });
+
+// promise
+// 	.then((value) => {
+// 		console.log(value); // 5
+// 		return value * 2;
+// 	})
+// 	.then((value) => {
+// 		console.log(value); // 10
+// 		return value * 3;
+// 	})
+// 	.then((value) => {
+// 		console.log(value); // 30
+// 	})
+// 	.catch((error) => {
+// 		console.log(error);
+// 	})
+// 	.finally(() => {
+// 		console.log("Final task");
+// 	});
+
+const fetchUserFromServer = (username, onSuccess, onError) => {
+	console.log(`Fetching data for ${username}`);
+
+	setTimeout(() => {
+		// Change value of isSuccess variable to simulate request status
+		const isSuccess = false;
+
+		if (isSuccess) {
+			onSuccess("success value");
+		} else {
+			onError("error");
+		}
+	}, 2000);
+};
+
+const onFetchSuccess = (user) => {
+	console.log(user);
+};
+
+const onFetchError = (error) => {
+	console.error(error);
+};
+
+fetchUserFromServer("Mango", onFetchSuccess, onFetchError);
